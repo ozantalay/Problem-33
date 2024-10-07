@@ -12,7 +12,11 @@ function useUserData() {
 const UserContext = createContext(false)
 
 export default function App() {
-  return <ProfilePage />
+  return (
+    <UserContext.Provider value={useUserData()}>
+      <ProfilePage/>
+    </UserContext.Provider>
+  )
 }
 
 function ProfilePage() {
@@ -27,6 +31,7 @@ function ProfilePage() {
 }
 
 function ProfileInfo() {
+  const {username}=useContext(UserContext)
   return (
     <div className='border-b border-gray-900/10 pb-12'>
       <h2 className='text-base font-semibold leading-7 text-gray-900'>
@@ -49,6 +54,7 @@ function ProfileInfo() {
             <div className='flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md'>
               <span className='flex select-none items-center pl-3 text-gray-500 sm:text-sm'>
                 mushoes.com/
+                
               </span>
               <input
                 type='text'
@@ -56,7 +62,8 @@ function ProfileInfo() {
                 id='username'
                 autoComplete='username'
                 className='block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6'
-                placeholder='namıkkorona'
+                defaultValue={username}
+                
               />
             </div>
           </div>
@@ -67,6 +74,7 @@ function ProfileInfo() {
 }
 
 function PersonalInfo() {
+  const {firstName, lastName, emailAddress} = useContext(UserContext)
   return (
     <div className='border-b border-gray-900/10 pb-12'>
       <h2 className='text-base font-semibold leading-7 text-gray-900'>
@@ -91,6 +99,7 @@ function PersonalInfo() {
               id='first-name'
               autoComplete='given-name'
               className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+              defaultValue={firstName}
             />
           </div>
         </div>
@@ -109,6 +118,7 @@ function PersonalInfo() {
               id='last-name'
               autoComplete='family-name'
               className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+              defaultValue={lastName}
             />
           </div>
         </div>
@@ -127,6 +137,7 @@ function PersonalInfo() {
               type='email'
               autoComplete='email'
               className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+              defaultValue={emailAddress}
             />
           </div>
         </div>
